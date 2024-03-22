@@ -601,10 +601,10 @@ void setRelayPwramp(bool pwrampOn)
 //	experimentation with controlling the Radiohat board from I2C as well.
 //	Note that the mixer enables are active LOW!
 void setRelayTXMixer(bool txMixerOn)
-{	setRelay(gPfFD, 6, gPfGPIO, gPfOLAT, ! txMixerOn);  }
+{	setRelay(gPfFD, 6, gPfGPIO, gPfOLAT, txMixerOn);  }
 
 void setRelayRXMixer(bool rxMixerOn)
-{	setRelay(gPfFD, 5, gPfGPIO, gPfOLAT, ! rxMixerOn);  }
+{	setRelay(gPfFD, 5, gPfGPIO, gPfOLAT, rxMixerOn);  }
 
 
 
