@@ -1,0 +1,257 @@
+# Please do not change this hardware control module for Quisk.
+# It provides control of RadioHat hardware via dynamic library.
+
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import division
+
+import sys, struct, time, traceback, math
+from quisk_hardware_model import Hardware as BaseHardware
+import _quisk as QS
+
+from ctypes import *
+
+ADCGAIN = 0.3
+NOMETERS = False
+DEBUG = 0
+
+WWV10ERROR = -140   	# from Quisk S Meter "Frequency 10"
+SI5351Correction = int(WWV10ERROR * -100)
+
+CODEC_CLOCK = 12288000	# Nominal for TCXO according to CODEC spec
+TX_CODEC_CLOCK = 12332460	# approximately exact for this card to keep quisk IQ OUT happy
+TX_CHANNEL_TO_CORRECT = "I/Q Tx Sample Output"
+TX_CORRECTION_DIVISOR = -1000000
+RX_CODEC_CLOCK = 12288660	# approximately exact for this card to keep quisk RADIO OUT happy
+RX_CHANNEL_TO_CORRECT = "Radio Sound Output"
+RX_CORRECTION_DIVISOR =  1000000
+
+class Hardware(BaseHardware):
+    def __init__(self, app, conf):
+        BaseHardware.__init__(self, app, conf)
+        self.vfo = None
+        self.mode = None
+        self.band = None
+        self.bandwidth = 15000  
+        self.startupFrequency = 7074000
+        self.repeater_freq = None  # original repeater output frequency
+        try:
+            self.repeater_delay = conf.repeater_delay
+        except:
+            self.repeater_delay = 0.25  # repeater frequency change delay in seconds
+        self.repeater_time0 = 0         # time of repeater change in frequency
+
+    def open(self):  # Called once to open the Hardware
+        self.libradiohat = CDLL("/usr/lib/libradiohat.so")
+        if self.libradiohat == 0:
+            t = "Can't find LibRadiohat!!"
+        else:
+            self.tick = 0
+            self.libradiohat.initVFO(c_int(SI5351Correction),self.startupFrequency,CODEC_CLOCK)
+            self.libradiohat.setAuxClock(CODEC_CLOCK)
+            self.TxAuxClock = TX_CODEC_CLOCK
+            self.RxAuxClock = RX_CODEC_CLOCK
+            self.AuxClock = RX_CODEC_CLOCK
+            self.AuxChannelToCorrect = RX_CHANNEL_TO_CORRECT
+            self.AuxCorrectionDivisor = RX_CORRECTION_DIVISOR
+            self.AuxCorrectionDelay = False
+            self.libradiohat.setAuxClock(self.AuxClock)
+            self.libradiohat.setVFO(self.startupFrequency)
+            self.libradiohat.initCodec()
+            self.libradiohat.initControl()
+            self.libradiohat.setADCVol(c_float(ADCGAIN))
+            self.getADCVol = self.libradiohat.getADCVol
+            self.getADCVol.restype = c_float
+            self.vswrexists = self.libradiohat.initVSWR()
+            self.transmitting = False
+            self.wasTransmitting = False
+            if (self.vswrexists):
+                self.readForwardOnly = self.libradiohat.readForwardOnly
+                self.readVSWROnly = self.libradiohat.readVSWROnly
+                self.readADCRaw = self.libradiohat.readADCRaw
+                self.readForwardOnly.restype = c_float
+                self.readVSWROnly.restype = c_float
+                self.readADCRaw.restype = c_float
+                self.power = 0
+                self.lastPower = -1
+                self.vswr = 0
+                self.lastVswr = -1
+                self.battery = 0 
+                self.lastBattery= -1
+            t = " *RadioHat*"
+        return t
+
+    def close(self):  # Called once to close the Hardware
+        pass
+
+
+    def AdjustCodecClock(self, correction):	# pins correction to +-1% of original setting
+        temp = self.AuxClock * (correction + 1.0)
+        if temp > (1.02 * CODEC_CLOCK):
+            temp = 1.02 * CODEC_CLOCK
+        if temp < (0.98 * CODEC_CLOCK):
+            temp = 0.98 * CODEC_CLOCK
+        self.AuxClock = int(temp)
+        self.libradiohat.setAuxClock(self.AuxClock)
+        print(temp)
+
+
+    def GetCodecClockCorrection(self):
+        for use, name, rate, latency, errors, level, dev_errmsg in QS.sound_errors():
+            if use == self.AuxChannelToCorrect:
+                correction = (rate / self.AuxCorrectionDivisor)
+                print(rate, correction)
+                return correction
+        return 1.0	# dummy for if didn't recognize status display
+
+
+    def CorrectCodecSpeed(self):
+        self.AdjustCodecClock(self.GetCodecClockCorrection())
+
+        
+    def ChangeFrequency(self, tune, vfo, source='', band='', event=None):
+        theVfo = vfo
+#        if tune > vfo:
+#            if (vfo - tune) > self.bandwidth:
+#                theVfo = tune + self.bandwidth
+#        else:
+#            if (tune - vfo) > self.bandwidth:
+#                theVFO = tune - self.bandwidth
+        self.libradiohat.setVFO(theVfo - self.transverter_offset)
+        self.libradiohat.checkLPF(theVfo - self.transverter_offset, c_bool(0))
+        if DEBUG:
+            print(tune,vfo,theVfo)
+        self.vfo = vfo
+        return tune, theVfo
+
+    def ReturnFrequency(self):
+        # Return the current tuning and VFO frequency.  If neither have changed,
+        # you can return (None, None).  This is called at about 10 Hz by the main.
+        # return (tune, vfo)	# return changed frequencies
+        return None, None  # frequencies have not changed
+
+    # Change frequency for repeater offset during Tx
+    def RepeaterOffset(self, offset=None):
+        if DEBUG:
+            print("in repeater offset")
+            print (offset)
+        if offset is None:  # Return True if frequency change is complete
+            if time.time() > self.repeater_time0 + self.repeater_delay:
+                return True
+        elif offset == 0:  # Change back to the original frequency
+            if self.repeater_freq is not None:
+                self.repeater_time0 = time.time()
+                self.ChangeFrequency(self.repeater_freq, self.repeater_freq, "repeater")
+                self.repeater_freq = None
+        else:  # Shift to repeater input frequency
+            self.repeater_time0 = time.time()
+            self.repeater_freq = self.vfo
+            if DEBUG:
+                print(self.vfo, offset, int(offset * 1000))
+            vfo = self.vfo + int(offset * 1000)  # Convert kHz to Hz
+            self.ChangeFrequency(vfo, vfo, 'repeater')
+        return False
+
+    def GetStartupFreq(self):  # return the startup frequency
+        return self.startupFrequency
+
+    def GetFreq(self):  # return the running frequency
+        return none,none
+
+
+    def ChangeBand(self, band):
+        # band is a string: "60", "40", "WWV", etc.
+        BaseHardware.ChangeBand(self, band)
+        self.band = band
+        self.SetTxLevel()
+
+    def ChangeMode(self, mode):
+        # mode is a string: "USB", "AM", etc.
+        BaseHardware.ChangeMode(self, mode)
+        self.mode = mode
+        QS.set_cwkey(0)
+        self.SetTxLevel()
+
+    def SetTxLevel(self):
+        tx_level = self.conf.tx_level.get(self.band, 70)
+        if self.mode[0:3] in ( "DGT", "FDV",):  # Digital modes; percentage of power
+            reduc = self.application.digital_tx_level
+        else:
+            reduc = self.application.tx_level
+        tx_level = int(tx_level * reduc / 100.0 + 0.5)
+        if tx_level < 0:
+            tx_level = 0
+        elif tx_level > 100:
+            tx_level = 100
+        QS.set_mic_out_volume(tx_level)
+        if DEBUG:
+            print(self.getADCVol())
+            print("Change tx_level to", tx_level)
+
+    def OnSpot(self, level):
+        pass
+
+    # Called by Quisk when changing between Rx and Tx. "is_tx" is 0 or 1
+    def OnChangeRxTx(self, is_tx):
+        self.transmitting = is_tx
+        self.libradiohat.enableTX(is_tx, 1)
+        if self.transmitting:
+            self.RxAuxClock = self.AuxClock
+            self.AuxClock = self.TxAuxClock
+            self.AuxChannelToCorrect = TX_CHANNEL_TO_CORRECT
+            self.AuxCorrectionDivisor = TX_CORRECTION_DIVISOR
+        else:
+            self.TxAuxClock = self.AuxClock
+            self.AuxClock = self.RxAuxClock
+            self.AuxChannelToCorrect = RX_CHANNEL_TO_CORRECT
+            self.AuxCorrectionDivisor = RX_CORRECTION_DIVISOR
+        self.libradiohat.setAuxClock(self.AuxClock)
+        self.AuxCorrectionDelay = True
+        pass
+
+    def PollCwKey(self):  # Called frequently by Quisk to check the CW key status
+        if self.mode not in ('CWU', 'CWL'):
+            return
+        if (self.libradiohat.isKeyInputActive() != 0):
+            QS.set_cwkey(1)
+        else:
+            QS.set_cwkey(0)
+        pass
+
+
+#    def HeartBeat(self):  # Called at about 10 Hz by the main
+#        pass
+
+
+    def HeartBeat(self):  # Called at about 10 Hz by the main
+        self.tick += 1
+        if (self.tick % 10) == 0:
+            if self.AuxCorrectionDelay:
+                self.AuxCorrectionDelay = False
+            else:
+                self.CorrectCodecSpeed()
+        if not NOMETERS:
+            phase = self.tick % 2
+            if self.vswrexists and self.application.bottom_widgets:
+                if (self.tick % 100) == 0:
+                    self.battery = self.readADCRaw(1,0) * 10
+                    if self.lastBattery != self.battery:
+                        self.lastBattery = self.battery
+                        self.application.bottom_widgets.UpdateVoltageText(self.battery)
+                elif self.transmitting:
+                    self.wasTransmitting = True
+                    if phase == 1:
+                        self.power = self.readForwardOnly()
+                        if self.power != self.lastPower:
+                            self.lastPower = self.power
+                            self.application.bottom_widgets.UpdateFwdText(self.power)
+                    elif phase == 0:
+                        self.vswr = self.readVSWROnly()
+                        if self.lastVswr != self.vswr:
+                            self.lastVswr = self.vswr
+                            self.application.bottom_widgets.UpdateVswrText(self.vswr)
+                elif self.wasTransmitting:
+                    self.wasTransmitting = False
+                    self.application.bottom_widgets.UpdateFwdText(0)
+                    self.application.bottom_widgets.UpdateVswrText(0)
+            pass
