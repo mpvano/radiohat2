@@ -1,4 +1,4 @@
-![3dView](FAB/radiohead3d.jpg?raw=true "Title")
+![3dView](radiohead2.jpg?raw=true "Title")
 # radiohat
 
 This is an early version of the folder full of files that need to be installed on a raspberry pi to allow experimentation with the RadioHat version 2.0 hardware.
