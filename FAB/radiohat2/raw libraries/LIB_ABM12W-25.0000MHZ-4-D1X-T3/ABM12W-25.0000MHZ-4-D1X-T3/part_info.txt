@@ -1,0 +1,9 @@
+Manufacturer=ABRACON
+PartNumber=ABM12W-25.0000MHZ-4-D1X-T3
+PartCategory=Crystal or Oscillator
+PackageCategory=Other
+PinCount=4
+Version=1.2
+Released=2019-11-18 10:05:21
+Downloaded=2021-02-05 15:59:37
+3D=Y

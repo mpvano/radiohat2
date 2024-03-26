@@ -1,0 +1,26 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#SamacSys ECAD Model RASM722PX
+#/811367/291555/2.48/3/4/Connector
+DEF RASM722PX J 0 30 Y Y 1 F N
+F0 "J" 1050 300 50 H V L CNN
+F1 "RASM722PX" 1050 200 50 H V L CNN
+F2 "RASM722PX" 1050 100 50 H I L CNN
+F3 "http://www.switchcraft.com/Drawings/rasm722px_cd.pdf" 1050 0 50 H I L CNN
+F4 "Conn Power PL 2 POS Solder RA SMD 3 Terminal 1 Port Bulk" 1050 -100 50 H I L CNN "Description"
+F5 "11" 1050 -200 50 H I L CNN "Height"
+F6 "Switchcraft" 1050 -300 50 H I L CNN "Manufacturer_Name"
+F7 "RASM722PX" 1050 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "502-RASM722PX" 1050 -500 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.co.uk/ProductDetail/Switchcraft/RASM722PX?qs=mcPJWgAPNreqpPYBQIzV2Q%3D%3D" 1050 -600 50 H I L CNN "Mouser Price/Stock"
+F10 "RASM722PX" 1050 -700 50 H I L CNN "Arrow Part Number"
+F11 "https://www.arrow.com/en/products/rasm722px/switchcraft" 1050 -800 50 H I L CNN "Arrow Price/Stock"
+DRAW
+X SLEEVE 1 0 0 200 R 50 50 0 0 P
+X SHUNT 2 0 -100 200 R 50 50 0 0 P
+X TIP 3 1200 0 200 L 50 50 0 0 P
+P 5 0 1 6 200 100 1000 100 1000 -200 200 -200 200 100 N
+ENDDRAW
+ENDDEF
+#
+#End Library

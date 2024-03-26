@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP DS3231MZ_V+
+D Real Time Clock TRC/TCMO MEMS 8L
+K
+F https://datasheets.maximintegrated.com/en/ds/DS3231M.pdf
+$ENDCMP
+#
+#End Doc Library

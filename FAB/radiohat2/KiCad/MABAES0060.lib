@@ -1,0 +1,49 @@
+EESchema-LIBRARY Version 2.4
+#encoding utf-8
+#
+# MABAES0031
+#
+DEF MABAES0031 T 0 30 Y Y 1 F N
+F0 "T" 650 300 50 H V L CNN
+F1 "MABAES0031" 650 200 50 H V L CNN
+F2 "" 650 100 50 H I L CNN
+F3 "https://cdn.macom.com/datasheets/MABAES0060.pdf" 650 0 50 H I L CNN
+F4 "Audio Transformers / Signal Transformers .3-200MHz IL 1.5dB Impedance Ratio 1:4" 650 -100 50 H I L CNN "Description"
+F5 "3.8" 650 -200 50 H I L CNN "Height"
+F6 "MACOM" 650 -300 50 H I L CNN "Manufacturer_Name"
+F7 "MABAES0031CT" 650 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "1464-MABAES0031-CT" 650 -500 50 H I L CNN "Mouser Part Number"
+DRAW
+P 5 0 1 6 200 100 600 100 600 -300 200 -300 200 100 N
+X 1 1 800 0 200 L 50 50 0 0 P
+X 2 2 800 -100 200 L 50 50 0 0 P
+X 3 3 800 -200 200 L 50 50 0 0 P
+X 4 4 0 -100 200 R 50 50 0 0 P
+X 5 5 0 0 200 R 50 50 0 0 P
+ENDDRAW
+ENDDEF
+#
+# MABAES0060
+#
+DEF MABAES0060 T 0 30 Y Y 1 F N
+F0 "T" 650 300 50 H V L CNN
+F1 "MABAES0060" 650 200 50 H V L CNN
+F2 "MABA007748CT1160" 650 100 50 H I L CNN
+F3 "https://cdn.macom.com/datasheets/MABAES0060.pdf" 650 0 50 H I L CNN
+F4 "Audio Transformers / Signal Transformers .3-200MHz IL 1.5dB Impedance Ratio 1:1" 650 -100 50 H I L CNN "Description"
+F5 "3.8" 650 -200 50 H I L CNN "Height"
+F6 "MACOM" 650 -300 50 H I L CNN "Manufacturer_Name"
+F7 "MABAES0060" 650 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "937-MABAES0060" 650 -500 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.co.uk/ProductDetail/MACOM/MABAES0060?qs=3Wmz%2FrCSAaFy1JUHzHaJzQ%3D%3D" 650 -600 50 H I L CNN "Mouser Price/Stock"
+DRAW
+P 5 0 1 6 200 100 600 100 600 -300 200 -300 200 100 N
+X 1 1 800 0 200 L 50 50 0 0 P
+X 2 2 800 -100 200 L 50 50 0 0 P
+X 3 3 800 -200 200 L 50 50 0 0 P
+X 4 4 0 -100 200 R 50 50 0 0 P
+X 5 5 0 0 200 R 50 50 0 0 P
+ENDDRAW
+ENDDEF
+#
+#End Library

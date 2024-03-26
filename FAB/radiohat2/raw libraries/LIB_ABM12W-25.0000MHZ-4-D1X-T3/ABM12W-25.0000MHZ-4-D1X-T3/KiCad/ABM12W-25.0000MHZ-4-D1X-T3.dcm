@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP ABM12W-25.0000MHZ-4-D1X-T3
+D Abracon 25MHz Crystal +/-10ppm (DFN - LCC), 4-SMD, No Lead 2.5 x 2.2 x 0.6mm
+K
+F https://componentsearchengine.com/Datasheets/1/ABM12W-25.0000MHZ-4-D1X-T3.pdf
+$ENDCMP
+#
+#End Doc Library

@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP MPM3610AGQV-P
+D Switching Voltage Regulators 21V/1.2A DC/DC Mini-Module Regulator with Integrated Inductor
+K
+F https://www.monolithicpower.com/pub/media/document/MPM3610A_r1.0.pdf
+$ENDCMP
+#
+#End Doc Library

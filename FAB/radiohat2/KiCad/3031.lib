@@ -1,0 +1,26 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#SamacSys ECAD Model 3031
+#/998223/291555/2.48/3/4/Undefined or Miscellaneous
+DEF 3031 U 0 30 Y Y 1 F N
+F0 "U" 750 300 50 H V L CNN
+F1 "3031" 750 200 50 H V L CNN
+F2 "3031" 750 100 50 H I L CNN
+F3 "http://keyelco.com/userAssets/file/M65p7.pdf" 750 0 50 H I L CNN
+F4 "Coin Cell Battery Holders 10MM THM COIN CELL CLIP" 750 -100 50 H I L CNN "Description"
+F5 "3" 750 -200 50 H I L CNN "Height"
+F6 "Keystone Electronics" 750 -300 50 H I L CNN "Manufacturer_Name"
+F7 "3031" 750 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "534-3031" 750 -500 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.co.uk/ProductDetail/Keystone-Electronics/3031?qs=wOxb8XianXgj1akLbqI0jQ%3D%3D" 750 -600 50 H I L CNN "Mouser Price/Stock"
+F10 "" 750 -700 50 H I L CNN "Arrow Part Number"
+F11 "" 750 -800 50 H I L CNN "Arrow Price/Stock"
+DRAW
+X 1 1 0 0 200 R 50 50 0 0 P
+X 2 2 0 -200 200 R 50 50 0 0 P
+X MP1 MP1 0 -100 200 R 50 50 0 0 P
+P 5 0 1 6 200 100 700 100 700 -300 200 -300 200 100 N
+ENDDRAW
+ENDDEF
+#
+#End Library
