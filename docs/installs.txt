@@ -1,0 +1,100 @@
+			Radiohat install for Bookworm 32/64 2023-Oct-18
+
+
+1. Install some useful utilities from raspbian repository
+
+	sudo apt install wsjtx fldigi qsstv pavucontrol-qt pipx
+
+
+
+2. unzip radiohat directory into home directory then:
+
+	sudo apt install libncurses-dev libgpiod-dev
+	cd radiohat/libradiohat ; make clean ; make
+	sudo make install
+
+   The codec will not be available until the next restart!
+
+FOR COMPATIBILITy WITH rVNC CLIENTS (not fully secure)
+
+	edit ~/config/wayland/config to add the line:
+		relax_encryption=true
+
+FOR GNURADIO
+
+Note that GNURADIO is currently working very badly with Wayland and generates many
+long-winded warnings during execution. It's not very compatible with BOOKWORM.
+
+1. 	sudo apt install gnuradio
+
+2. delete any __pycache__ directories in ~/radiohat/libradiohat/GRC and
+   its subfolders
+
+3. Open all dsp graphs (.grc files) you intend to use and correct any
+   version incompatibilities in them or in their sub modules, 
+   then regenerate them
+
+4. quit gnuradio-companion and restart it.
+
+
+
+FOR VERY OLD QUISK VERSION FROM REPOSITORY:
+
+1. 	sudo apt install quisk
+
+2. setup quisk to use a radio of type Softrock and browse
+   to point the hardware file to:
+
+	~/radiohat/libradiohat/QUISK/radiohat_hardware.py
+
+3. set the various audio io selections to:
+
+	(quisk allows shortened device names)
+
+	alsa:USB
+	alsa:USB
+	alsa:Radiohat
+	alsa:Radiohat
+	swap the I and Q on the radio IO input configuration
+
+
+FOR LATEST QUISK
+
+1. 	sudo apt install pipx
+ 	sudo apt install libasound2-dev python3-dev libpython3-dev \
+      		python3-usb python3-setuptools portaudio19-dev \
+      		libpulse-dev libgtk-4-dev libgtk-3-dev libgtk2.0-dev \
+      		libcurl4-openssl-dev
+
+	NOTE THAT PIPX DOES NOT REQUIRE SUDO OR ROOT ACCESS
+
+		pipx install quisk (MAY TAKE AROUND AN HOUR)
+		pipx ensurepath
+
+5. setup quisk to use a radio of type Softrock by browsing to point the
+   hardware file to:
+
+	~/radiohat/libradiohat/QUISK/radiohatpkg/radiohat_hardware.py
+
+6. set the audio io to
+	alsa:USB
+	alsa:USB
+	alsa:Radiohat
+	alsa:Radiohat
+	swap the I and Q on the radio IO input configuration
+
+
+7.  If you have I2C Voltage and VSWR sensors connected to an ADS1115 ADC board with reverse=CH0,
+    forward=CH2 and (battery/10)=CH2 as described in vfo.cpp, then browse in the 
+    Quisk radio configuration to set the widgets file to point to:
+ 
+	~/radiohat/libradiohat/QUISK/radiohatpkg/widgets_tx.py
+
+
+FOR BEST RESULTS WITH RadioHat 0.9/1.0 boards and Quisk
+
+1. REMOVE C6 and C7
+2. CHANGE R3,R4,R7,R8 to 0 ohm jumpers
+3. CHANGE R11,R12 to 5.1K
+4. Use a generic USB audio interface for microphone and headphone
+

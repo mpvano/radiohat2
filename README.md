@@ -41,9 +41,9 @@ The provided software is a collection of example and test programs that demonstr
 This repository is newly setup and is still being tested. There may be some issues with missing files, etc. They are being addressed as quickly as possible.
 
 ### Dependencies
-These are in the course of being documented. In general they are confined to the normal Raspberry Pi build tools, with the exception of ncurses and its development tools.
+In general they are confined to the normal Raspberry Pi build tools, with the exception of ncurses and its development tools.
 
-There's a log file of the updates to one clean Raspbian install that were needed in the "misc" folder that may be helpful in figuring out useful and missing dependencies.
+There is a simple installation described in the PDF file in the DOC folder.
 
 ### Mailing list
 
