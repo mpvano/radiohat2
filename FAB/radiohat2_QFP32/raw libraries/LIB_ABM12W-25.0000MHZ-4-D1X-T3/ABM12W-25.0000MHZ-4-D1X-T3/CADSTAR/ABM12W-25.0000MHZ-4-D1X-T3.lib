@@ -1,0 +1,18 @@
+.ABM12W-25.0000MHZ-4-D1X-T3 :1 ;Abracon 25MHz Crystal +/-10ppm (DFN - LCC), 4-SMD, No Lead 2.5 x 2.2 x 0.6mm
+ABM12W250000MHZ4D1XT3
+*STM Y
+*NGS
+*PLB 1="CRYSTAL_1" 2="GND_1" 3="CRYSTAL_2" 4="GND_2"
+*MXP 4
+*DFN ABM12W-25.0000MHZ-4-D1X-T3
+~!Manufacturer_Name (ABRACON)
+~!Manufacturer_Part_Number (ABM12W-25.0000MHZ-4-D1X-T3)
+~!Mouser Part Number (815-12W25-4D1XT)
+~!Link Mouser Price/Stock (https://www.mouser.co.uk/ProductDetail/ABRACON/ABM12W-250000MHZ-4-D1X-T3?qs=5aG0NVq1C4wxa1ytFJ%2FD3A%3D%3D)
+~!Arrow Part Number (-)
+~!Arrow Price/Stock (-)
+~!Link Datasheet (https://componentsearchengine.com/Datasheets/1/ABM12W-25.0000MHZ-4-D1X-T3.pdf)
+~!Height (0.4mm)
+~!3D_Model (ABM12W-25.0000MHZ-4-D1X-T3)
+ABM12W-25.0000MHZ-4-D1X-T3
+1.1!U 2.1!U 3.1!U 4.1!U 

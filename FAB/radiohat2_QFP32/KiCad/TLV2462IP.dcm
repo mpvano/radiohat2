@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP TLV2462IP
+D Dual Low-Power, Rail-to-Rail Input/Output Operational Amplifier
+K
+F http://www.ti.com/lit/gpn/tlv2462
+$ENDCMP
+#
+#End Doc Library

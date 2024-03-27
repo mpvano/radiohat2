@@ -1,0 +1,13 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP MABAES0031
+D Audio Transformers / Signal Transformers .3-200MHz IL 1.5dB Impedance Ratio 1:1
+F https://cdn.macom.com/datasheets/MABAES0060.pdf
+$ENDCMP
+#
+$CMP MABAES0060
+D Audio Transformers / Signal Transformers .3-200MHz IL 1.5dB Impedance Ratio 1:1
+F https://cdn.macom.com/datasheets/MABAES0060.pdf
+$ENDCMP
+#
+#End Doc Library

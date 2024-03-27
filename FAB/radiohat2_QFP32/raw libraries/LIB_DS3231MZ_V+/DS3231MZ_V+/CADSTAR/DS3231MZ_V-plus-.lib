@@ -1,0 +1,18 @@
+.DS3231MZ_V-plus- :1 ;Real Time Clock TRC/TCMO MEMS 8L
+SOIC127P600X175-8N
+*STM IC
+*NGS
+*PLB 1="32KHZ" 2="VCC" 3="'INT'/SQW" 4="'RST'" 5="GND" 6="VBAT" 7="SDA" 8="SCL"
+*MXP 8
+*DFN DS3231MZ_V-plus-
+~!Manufacturer_Name (Maxim Integrated)
+~!Manufacturer_Part_Number (DS3231MZ/V+)
+~!Mouser Part Number (700-DS3231MZ/V+)
+~!Link Mouser Price/Stock (https://www.mouser.co.uk/ProductDetail/Maxim-Integrated/DS3231MZ-V%2b/?qs=Qom7kyPojXZylqiDztGLqw%3D%3D)
+~!Arrow Part Number (-)
+~!Arrow Price/Stock (-)
+~!Link Datasheet (https://datasheets.maximintegrated.com/en/ds/DS3231M.pdf)
+~!Height (1.75mm)
+~!3D_Model (DS3231MZ_V+)
+DS3231MZ_V-plus-
+1.1!U 2.1!U 3.1!U 4.1!U 8.1!U 7.1!U 6.1!U 5.1!U 

@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP RASM722PX
+D Conn Power PL 2 POS Solder RA SMD 3 Terminal 1 Port Bulk
+K
+F http://www.switchcraft.com/Drawings/rasm722px_cd.pdf
+$ENDCMP
+#
+#End Doc Library

@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP LM4562MA_NOPB
+D Texas Instruments LM4562MA/NOPB, Dual Audio Op Amp, 55MHz Rail-Rail, 8-Pin SOIC
+K
+F http://www.ti.com/lit/ds/symlink/lm4562.pdf
+$ENDCMP
+#
+#End Doc Library

@@ -1,0 +1,11 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP 2895mv-4xxx
+F https://www.mouser.com/datasheet/2/215/Keystone_Electronics_04082019_2895-1551354.pdf
+$ENDCMP
+#
+$CMP MABAES0060-Transformer
+F https://cdn.macom.com/datasheets/MABAES0060.pdf
+$ENDCMP
+#
+#End Doc Library
