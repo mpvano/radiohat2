@@ -14,7 +14,7 @@ Note also that some of the files in "docs" are very out of date or incomplete. T
 Unlike RadioHat 1, RadioHat2 is an open source peripheral board for the Raspberry Pi in a form similar to an extended Pi "hat". Note that this board overhangs the pi USB and Ethernet connectors to match the dimensions of the Pi itself. This means it does not qualify as an official "HAT". It is intended to be a module containing many of the devices that are commonly needed to implement 3-30Mhz radio transmitters and receivers. It may also be used with other micro-controllers that support I2S if they are sufficiently powerful to handle the needed DSP operations.
 
 It contains the following devices:<ol>
-	<li>A Freescale SGLT5000 24 bit full duplex 48Khz I2S Audio codec with headset interface</li>
+	<li>A Freescale SGTL5000 24 bit full duplex 48Khz I2S Audio codec with headset interface</li>
 	<li>A Quadrature Switched Demodulator preceded by a 3-32Mhz Band Pass Filter</li>
 	<li>A Quadrature Switched Modulator followed by a 32Mhz Low Pass Filter</li>
 	<li>An Si5351 I2C controlled clock oscillator configured to provide quadrature clocks for them</li>
@@ -24,19 +24,21 @@ It contains the following devices:<ol>
 	<li>On board analog regulators to provide cleaner power from an optional external source</li>
 </ol>
 
-These devices are wired together in the usual way needed for HF radio operation with DSP provided by the Raspberry Pi. For typical operation as a radio transceiver you still need to provide a power amplifier with output filters and a transmit/receive switching mechanism. The usual output low pass filters are adequate for most uses as input filters for the receiver if the t/r switching is done in such a way that they remain inline with the receiver.
+These devices are wired together in the usual way needed for HF radio operation with DSP provided by the Raspberry Pi. For typical operation as a radio transceiver you still need to provide a power amplifier with output filters and a transmit/receive switching mechanism. The usual output low pass filters are adequate for most uses as input filters for the receiver if the T/R switching is done in such a way that they remain inline with the receiver.
 
-Note that the real time clock option and Codec Line input output connection points that were present in Radiohat 1 have been removed. The Radiohat 1 board remains software compatible with this board, however and although it is no longer under development it remains a viable option for those needing a true "hat" for the pi, or requiring a real time clock.
+Note that the real time clock option and Codec Line input output connection points that were present in Radiohat 1 have been removed. The Radiohat 1 board whose Kicad Folder is still in the repository remains software compatible with this board and although it is no longer under development it remains a viable option for those needing a true "hat" for the pi, or requiring a real time clock. 
+
+There are two different Kicad folders available for RadioHat 2 - they differ primarily in that the one named "radiohat2_QFP32" is compatible with older 32 pin versions of the codec chip instead of the current 20 pin part. They will eventually be merged into a single version.
 
 ### Fabrication of boards
-Although a small production run was completed to provide a few boards for use by software developers, there is currently no way to obtain boards other than fabricating them yourself.
+RadioHat2 is open sourced hardware licensed via an MIT license and the Gerber files, preliminary BOM and some draft documentation are all part of the project. 
 
-The RadioHat2 is open sourced hardware licensed via an MIT license and the Gerber files, preliminary BOM and some draft documentation are all part of the project. The Kicad files for the layout will be part of a later release once they have been edited for clarity.
+Although a small production run was completed to provide a few boards for use by software developers, there is currently no way to obtain boards other than ordering them from a board manufacturer yourself - this is easy and inexpensive to do and the needed Gerber files are in this repository.
 
-Note that this board is very compact and built with QFPn and 0603 components. It's not very practical to attempt assembly by hand. The boards need to be reflow soldered after the components are installed with the help of a front side solder paste screen.
+Note that this board is very compact and built with QFPn and 0603 components. It's not very practical to attempt assembly by hand. The board is intended to be reflow soldered after the components are placed on pads with the help of a front side solder paste screen.
 
 ### Software
-The provided software is a collection of example and test programs that demonstrate operation of the board and allow testing and troubleshooting of it. They are only intended as a starting point for more serious software development. Experimental support is provided for use with the popular "Quisk" Transceiver software as well.
+The provided software is a collection of example and test programs that demonstrate operation of the board and allow testing and troubleshooting of it. They are only intended as a starting point for more serious software development. Experimental support is also provided for use with the popular "Quisk" Transceiver software as well.
 
 This repository is newly setup and is still being tested. There may be some issues with missing files, etc. They are being addressed as quickly as possible.
 
@@ -44,6 +46,8 @@ This repository is newly setup and is still being tested. There may be some issu
 In general they are confined to the normal Raspberry Pi build tools, with the exception of ncurses and its development tools.
 
 There is a simple installation described in the PDF file in the DOC folder.
+
+Version 7 of Kicad or later is needed to modify the board design.
 
 ### Mailing list
 
