@@ -1,0 +1,27 @@
+ERRATA!!! ERRATA!!! ERRATA!!! ERRATA!!!
+
+
+Note that part number for U14 - the TLV9064 quad op amp in the bill of materials for BOTH the radiohat2_QFP and radiohat 2 layouts IS INCORRECT.
+
+The part number shown in the BOM for the digikey part is
+
+TLV9064IPWR, CMOS Amplifier 4 Circuit Rail-to-Rail 14-TSSOP, 296-50014-1-ND
+
+This was the intended part, but in the wrong package footprint! A 3.90mm width is what the layout intended!
+
+TLV9064QDRQ1	IC CMOS 4 CIRCUIT 14SOIC 	296-TLV9064QDRQ1CT-ND
+
+was what I intended
+
+In fact, the prototypes were built and tested using 
+
+TLV2464IDR		IC OPAMP GP 4 CIRCUIT 14SOIC	296-10608-1-ND
+
+Which I happened to have in stock. FOR NOW, I suggest using this part - even though it's slightly more expensive as I have done no testing with the 9064 to confirm proper behavior.
+
+I will attempt to resolve this issue before the next board revision is published...
+
+Mario Vano
+28-March-2024
+
+
