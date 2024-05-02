@@ -209,12 +209,14 @@ int initVFO(long correction, uint32_t startFreq, uint32_t codecfreq)
 
 	gVFOA = startFreq;
 	updateTheVFO();
-
+/*
 	si5351.update_status();
 	return !(	si5351.dev_status.SYS_INIT
 			||  si5351.dev_status.LOL_A
 			|| si5351.dev_status.LOL_B
 			|| si5351.dev_status.LOS	);
+*/
+	return true;
 }
 
 
