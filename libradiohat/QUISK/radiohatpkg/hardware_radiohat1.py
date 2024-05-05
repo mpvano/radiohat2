@@ -12,7 +12,7 @@ import _quisk as QS
 from ctypes import *
 
 ADCGAIN = 0.3
-SHOW_METERS = False
+SHOW_METERS = True
 DEBUG = 0
 
 #WWV10ERROR = -140       # from Quisk S Meter "Frequency 10"
