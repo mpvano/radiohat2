@@ -26,6 +26,8 @@ It contains the following devices:<ol>
 
 These devices are wired together in the usual way needed for HF radio operation with DSP provided by the Raspberry Pi. For typical operation as a radio transceiver you still need to provide a power amplifier with output filters and a transmit/receive switching mechanism. The usual output low pass filters are adequate for most uses as input filters for the receiver if the T/R switching is done in such a way that they remain inline with the receiver.
 
+The repository now contains another board design of the same size in FAB/txfilters1 which implements a 5 filter LPF/VSWR Meter/TR Relay for stacking with the RadioHat board. Together with your choice of power amplifier this now allows a complete transceiver to be built easily.
+
 Note that the real time clock option and Codec Line input output connection points that were present in Radiohat 1 have been removed. The Radiohat 1 board whose Kicad Folder is still in the repository remains software compatible with this board and although it is no longer under development it remains a viable option for those needing a true "hat" for the pi, or requiring a real time clock. 
 
 There are two different Kicad folders available for RadioHat 2 - they differ primarily in that the one named "radiohat2_QFP32" is compatible with older 32 pin versions of the codec chip instead of the current 20 pin part. They will eventually be merged into a single version.
