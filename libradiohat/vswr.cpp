@@ -5,6 +5,12 @@
 *	Hastily written to exterminate the wiringPI dependency
 *	Hopefully it now only depends on standard kernel modules
 *
+*	5-May-2024:
+*	There's been a bug in the power calculation in this module for years.
+*	The turns ratio factor was only applied to the ADC reading instead of
+*	correctly AFTER all the other terms are summed. The diode drop was not
+*	being scaled as a result.
+*
 *	by Mario P. Vano
 ****************************************************************************/
 #include <unistd.h>
@@ -172,12 +178,12 @@ float readVSWR(float * fwdPower)
 {
 const float kPwrCalibration = 1;	//	fudge factor
 const float cDirCoupling = 13.0;	//	fractional coupler loss factor
-const float cDiodeDrop = 0.150;		//	germanium diode voltage offset
+const float cDiodeDrop = 0.390;		//	schottky diode voltage offset
 const int cTheGain = 0;				//  request lowest gain
-const float cLSBSize = cLSBSIZE_TABLE[cTheGain] * cDirCoupling;
+const float cLSBSize = cLSBSIZE_TABLE[cTheGain];
 
-float rev = cDiodeDrop + (cLSBSize * readADC(0, cTheGain));
-float fwd = cDiodeDrop + (cLSBSize * readADC(2, cTheGain));
+float rev = (cDiodeDrop + (cLSBSize * readADC(0, cTheGain))) * cDirCoupling;
+float fwd = (cDiodeDrop + (cLSBSize * readADC(2, cTheGain))) * cDirCoupling;
 float vswr;
 static float rev_last;
 static float fwd_last;
