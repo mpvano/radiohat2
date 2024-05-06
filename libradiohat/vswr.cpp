@@ -24,7 +24,7 @@
 #include "vswr.h"
 
 //	other jumper settings allow for 0x48-0x51 base address
-#define	ADS_ADDR	0x48	
+#define	ADS_ADDR	0x48
 
 #define	ADS1115_POINTER_REG 		0
 
@@ -141,11 +141,11 @@ int theConfig = gADS1115_config | gPINMAP[pin] | gGAINMAP[gain];
 uint8_t writeBuf[3] = { ADS1115_Config_p,
 						(uint8_t)(theConfig >> 8),
 						(uint8_t)(theConfig & 0xff) };
-						
+
 	bool result =  (write(gADS1115fd, writeBuf, 3) >= 0);
 	if (result)
 		{
-		while ((readBuf[0] & ADS1115_Donebit) == 0)	//	wait for conversion 
+		while ((readBuf[0] & ADS1115_Donebit) == 0)	//	wait for conversion
 		  	read(gADS1115fd, readBuf, 2);			// loop reading config reg
 		}
 	if (result)
@@ -182,22 +182,16 @@ const float cDiodeDrop = 0.390;		//	schottky diode voltage offset
 const int cTheGain = 0;				//  request lowest gain
 const float cLSBSize = cLSBSIZE_TABLE[cTheGain];
 
-float rev = (cDiodeDrop + (cLSBSize * readADC(0, cTheGain))) * cDirCoupling;
-float fwd = (cDiodeDrop + (cLSBSize * readADC(2, cTheGain))) * cDirCoupling;
+float rev_raw = (cLSBSize * readADC(0, cTheGain));
+float fwd_raw = (cLSBSize * readADC(2, cTheGain));
+float rev = (rev_raw + cDiodeDrop) * cDirCoupling;
+float fwd = (fwd_raw + cDiodeDrop) * cDirCoupling;
 float vswr;
-static float rev_last;
-static float fwd_last;
 
-#ifdef SMOOTHVSWR
-	fwd = (fwd + fwd_last)/2;
-	rev = (rev + rev_last)/2;
-	fwd_last = fwd;
-	rev_last = rev;
-#endif
-
-	fwd = (fwd < 0.00001) ? 0.00001 : fwd;	//	crude divide by zero avoidance
-	rev = (rev < 0.00001) ? 0.00001 : rev;
-	vswr = (fwd + rev) / (fwd - rev);	
+	if (fwd_raw <= rev_raw)
+		vswr = 0;
+	else
+		vswr = (fwd_raw + rev_raw) / (fwd_raw - rev_raw);
 
 	float pwr = fwd / 1.414;						//	convert to rms
 	pwr = ((pwr * pwr) / 50.0) * kPwrCalibration;	// estimate power at 50 ohms
