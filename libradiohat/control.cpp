@@ -551,7 +551,7 @@ int writeLPFRelays(int theFD, int theOLAT, int theGPIO, uint8_t byteval)
 void checkRelays(uint32_t frequency, bool nocache)
 {
 const uint32_t LPF1_LIMIT = 30000000L;
-const uint32_t LPF2_LIMIT = 25000000L;
+const uint32_t LPF2_LIMIT = 23000000L;
 const uint32_t LPF3_LIMIT = 14500000L;
 const uint32_t LPF4_LIMIT = 7500000L;
 const uint32_t LPF5_LIMIT = 4000000L;
