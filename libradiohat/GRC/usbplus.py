@@ -41,7 +41,7 @@ from gnuradio import qtgui
 
 class usbplus(gr.top_block, Qt.QWidget):
 
-    def __init__(self, GAIN=0.4, HPF=3200, LPF=50, RXSINK='', Sideband=1, TXSOURCE='plughw:CARD=Loopback,DEV=1'):
+    def __init__(self, GAIN=0.4, HPF=3500, LPF=50, RXSINK='', Sideband=1, TXSOURCE='plughw:CARD=Loopback,DEV=1'):
         gr.top_block.__init__(self, "Usbplus", catch_exceptions=True)
         Qt.QWidget.__init__(self)
         self.setWindowTitle("Usbplus")
@@ -114,7 +114,7 @@ class usbplus(gr.top_block, Qt.QWidget):
             firdes.low_pass(
                 1,
                 samp_rate,
-                3200,
+                HPF,
                 100,
                 window.WIN_KAISER,
                 6.76))
@@ -123,7 +123,7 @@ class usbplus(gr.top_block, Qt.QWidget):
             firdes.low_pass(
                 1,
                 samp_rate,
-                3200,
+                HPF,
                 100,
                 window.WIN_KAISER,
                 6.76))
@@ -146,7 +146,7 @@ class usbplus(gr.top_block, Qt.QWidget):
                 1,
                 samp_rate,
                 100,
-                3000,
+                HPF,
                 100,
                 window.WIN_BLACKMAN,
                 6.76))
@@ -215,6 +215,9 @@ class usbplus(gr.top_block, Qt.QWidget):
     def set_HPF(self, HPF):
         self.HPF = HPF
         self.band_pass_filter_0.set_taps(firdes.band_pass(self.GAIN, self.samp_rate, self.LPF, self.HPF, 100, window.WIN_BLACKMAN, 6.76))
+        self.band_pass_filter_1.set_taps(firdes.band_pass(1, self.samp_rate, 100, self.HPF, 100, window.WIN_BLACKMAN, 6.76))
+        self.low_pass_filter_0.set_taps(firdes.low_pass(1, self.samp_rate, self.HPF, 100, window.WIN_KAISER, 6.76))
+        self.low_pass_filter_0_0.set_taps(firdes.low_pass(1, self.samp_rate, self.HPF, 100, window.WIN_KAISER, 6.76))
 
     def get_LPF(self):
         return self.LPF
@@ -249,9 +252,9 @@ class usbplus(gr.top_block, Qt.QWidget):
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
         self.band_pass_filter_0.set_taps(firdes.band_pass(self.GAIN, self.samp_rate, self.LPF, self.HPF, 100, window.WIN_BLACKMAN, 6.76))
-        self.band_pass_filter_1.set_taps(firdes.band_pass(1, self.samp_rate, 100, 3000, 100, window.WIN_BLACKMAN, 6.76))
-        self.low_pass_filter_0.set_taps(firdes.low_pass(1, self.samp_rate, 3200, 100, window.WIN_KAISER, 6.76))
-        self.low_pass_filter_0_0.set_taps(firdes.low_pass(1, self.samp_rate, 3200, 100, window.WIN_KAISER, 6.76))
+        self.band_pass_filter_1.set_taps(firdes.band_pass(1, self.samp_rate, 100, self.HPF, 100, window.WIN_BLACKMAN, 6.76))
+        self.low_pass_filter_0.set_taps(firdes.low_pass(1, self.samp_rate, self.HPF, 100, window.WIN_KAISER, 6.76))
+        self.low_pass_filter_0_0.set_taps(firdes.low_pass(1, self.samp_rate, self.HPF, 100, window.WIN_KAISER, 6.76))
         self.qtgui_sink_x_0.set_frequency_range(0, self.samp_rate)
 
 
@@ -262,7 +265,7 @@ def argument_parser():
         "-G", "--GAIN", dest="GAIN", type=eng_float, default=eng_notation.num_to_str(float(0.4)),
         help="Set GAIN [default=%(default)r]")
     parser.add_argument(
-        "--HPF", dest="HPF", type=intx, default=3200,
+        "--HPF", dest="HPF", type=intx, default=3500,
         help="Set HPF [default=%(default)r]")
     parser.add_argument(
         "--LPF", dest="LPF", type=intx, default=50,

@@ -21,11 +21,12 @@ install:
 	rm -f CONFIG_CACHE*
 	echo "\n[all]\n##RadioHat 1.0##" > CONFIG_CACHE_HEAD
 	echo "\n[all]" > CONFIG_CACHE_TAIL
-	if ! grep -q "^dtparam=i2c.*=on" /boot/config.txt ; then echo "dtparam=i2c=on";  fi >> CONFIG_CACHE_BODY
-	if ! grep -q "^dtparam=i2s=on" /boot/config.txt ; then echo "dtparam=i2s=on";  fi >> CONFIG_CACHE_BODY
-	if ! grep -q "^dtoverlay=RadioHatCodec" /boot/config.txt ; then echo "dtoverlay=RadioHatCodec";  fi >> CONFIG_CACHE_BODY
-	if ! grep -q "^gpio=22,23=op,dh" /boot/config.txt ; then echo "gpio=22,23=op,dh";  fi >> CONFIG_CACHE_BODY
-	if test -s CONFIG_CACHE_BODY ; then cat CONFIG_CACHE_HEAD CONFIG_CACHE_BODY CONFIG_CACHE_TAIL ; fi >> /boot/config.txt
+	if ! grep -q "^dtparam=i2c.*=on" /boot/firmware/config.txt ; then echo "dtparam=i2c=on";  fi >> CONFIG_CACHE_BODY
+	if ! grep -q "^dtparam=i2s=on" /boot/firmware/config.txt ; then echo "dtparam=i2s=on";  fi >> CONFIG_CACHE_BODY
+	if ! grep -q "^dtoverlay=RadioHatCodec" /boot/firmware/config.txt ; then echo "dtoverlay=RadioHatCodec";  fi >> CONFIG_CACHE_BODY
+	if ! grep -q "^gpio=22,23=op,dh" /boot/firmware/config.txt ; then echo "gpio=22,23=op,dh";  fi >> CONFIG_CACHE_BODY
+	if ! grep -q "^gpio=14,15,16,17=ip,pu" /boot/firmware/config.txt ; then echo "gpio=14,15,16,17=ip,pu";  fi >> CONFIG_CACHE_BODY
+	if test -s CONFIG_CACHE_BODY ; then cat CONFIG_CACHE_HEAD CONFIG_CACHE_BODY CONFIG_CACHE_TAIL ; fi >> /boot/firmware/config.txt
 
 remove:
 	rm /usr/lib/libradiohat.so

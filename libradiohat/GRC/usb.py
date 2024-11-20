@@ -6,13 +6,14 @@
 #
 # GNU Radio Python Flow Graph
 # Title: Usb
-# GNU Radio version: 3.8.2.0
+# GNU Radio version: 3.10.5.1
 
 from gnuradio import audio
 from gnuradio import blocks
 from gnuradio import filter
 from gnuradio.filter import firdes
 from gnuradio import gr
+from gnuradio.fft import window
 import sys
 import signal
 from argparse import ArgumentParser
@@ -20,10 +21,12 @@ from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
 
 
+
+
 class usb(gr.top_block):
 
     def __init__(self, GAIN=0.4, HPF=3200, LPF=50, RXSINK='', Sideband=1, TXSOURCE='plughw:CARD=Loopback,DEV=1', parameter_0=0):
-        gr.top_block.__init__(self, "Usb")
+        gr.top_block.__init__(self, "Usb", catch_exceptions=True)
 
         ##################################################
         # Parameters
@@ -44,6 +47,7 @@ class usb(gr.top_block):
         ##################################################
         # Blocks
         ##################################################
+
         self.low_pass_filter_0_0 = filter.fir_filter_fff(
             1,
             firdes.low_pass(
@@ -51,7 +55,7 @@ class usb(gr.top_block):
                 samp_rate,
                 3200,
                 100,
-                firdes.WIN_KAISER,
+                window.WIN_KAISER,
                 6.76))
         self.low_pass_filter_0 = filter.fir_filter_fff(
             1,
@@ -60,11 +64,11 @@ class usb(gr.top_block):
                 samp_rate,
                 3200,
                 100,
-                firdes.WIN_KAISER,
+                window.WIN_KAISER,
                 6.76))
-        self.hilbert_fc_1_0 = filter.hilbert_fc(201, firdes.WIN_BLACKMAN_hARRIS, 6.76)
-        self.hilbert_fc_1 = filter.hilbert_fc(201, firdes.WIN_BLACKMAN_hARRIS, 6.76)
-        self.hilbert_fc_0 = filter.hilbert_fc(201, firdes.WIN_BLACKMAN_hARRIS, 6.76)
+        self.hilbert_fc_1_0 = filter.hilbert_fc(201, window.WIN_BLACKMAN_hARRIS, 6.76)
+        self.hilbert_fc_1 = filter.hilbert_fc(201, window.WIN_BLACKMAN_hARRIS, 6.76)
+        self.hilbert_fc_0 = filter.hilbert_fc(201, window.WIN_BLACKMAN_hARRIS, 6.76)
         self.blocks_multiply_const_vxx_0_0_1 = blocks.multiply_const_ff(Sideband)
         self.blocks_multiply_const_vxx_0_0_0_0 = blocks.multiply_const_ff(1)
         self.blocks_multiply_const_vxx_0_0_0 = blocks.multiply_const_ff(1)
@@ -82,7 +86,7 @@ class usb(gr.top_block):
                 100,
                 3000,
                 100,
-                firdes.WIN_BLACKMAN,
+                window.WIN_BLACKMAN,
                 6.76))
         self.band_pass_filter_0 = filter.fir_filter_fff(
             1,
@@ -92,13 +96,12 @@ class usb(gr.top_block):
                 LPF,
                 HPF,
                 100,
-                firdes.WIN_BLACKMAN,
+                window.WIN_BLACKMAN,
                 6.76))
         self.audio_source_1 = audio.source(samp_rate, TXSOURCE, True)
         self.audio_source_0 = audio.source(samp_rate, 'hw:RadioHatCodec,1', False)
         self.audio_sink_1 = audio.sink(48000, RXSINK, False)
         self.audio_sink_0 = audio.sink(samp_rate, 'hw:RadioHatCodec,0', False)
-
 
 
         ##################################################
@@ -131,21 +134,21 @@ class usb(gr.top_block):
 
     def set_GAIN(self, GAIN):
         self.GAIN = GAIN
-        self.band_pass_filter_0.set_taps(firdes.band_pass(self.GAIN, self.samp_rate, self.LPF, self.HPF, 100, firdes.WIN_BLACKMAN, 6.76))
+        self.band_pass_filter_0.set_taps(firdes.band_pass(self.GAIN, self.samp_rate, self.LPF, self.HPF, 100, window.WIN_BLACKMAN, 6.76))
 
     def get_HPF(self):
         return self.HPF
 
     def set_HPF(self, HPF):
         self.HPF = HPF
-        self.band_pass_filter_0.set_taps(firdes.band_pass(self.GAIN, self.samp_rate, self.LPF, self.HPF, 100, firdes.WIN_BLACKMAN, 6.76))
+        self.band_pass_filter_0.set_taps(firdes.band_pass(self.GAIN, self.samp_rate, self.LPF, self.HPF, 100, window.WIN_BLACKMAN, 6.76))
 
     def get_LPF(self):
         return self.LPF
 
     def set_LPF(self, LPF):
         self.LPF = LPF
-        self.band_pass_filter_0.set_taps(firdes.band_pass(self.GAIN, self.samp_rate, self.LPF, self.HPF, 100, firdes.WIN_BLACKMAN, 6.76))
+        self.band_pass_filter_0.set_taps(firdes.band_pass(self.GAIN, self.samp_rate, self.LPF, self.HPF, 100, window.WIN_BLACKMAN, 6.76))
 
     def get_RXSINK(self):
         return self.RXSINK
@@ -178,18 +181,17 @@ class usb(gr.top_block):
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
-        self.band_pass_filter_0.set_taps(firdes.band_pass(self.GAIN, self.samp_rate, self.LPF, self.HPF, 100, firdes.WIN_BLACKMAN, 6.76))
-        self.band_pass_filter_1.set_taps(firdes.band_pass(1, self.samp_rate, 100, 3000, 100, firdes.WIN_BLACKMAN, 6.76))
-        self.low_pass_filter_0.set_taps(firdes.low_pass(1, self.samp_rate, 3200, 100, firdes.WIN_KAISER, 6.76))
-        self.low_pass_filter_0_0.set_taps(firdes.low_pass(1, self.samp_rate, 3200, 100, firdes.WIN_KAISER, 6.76))
-
+        self.band_pass_filter_0.set_taps(firdes.band_pass(self.GAIN, self.samp_rate, self.LPF, self.HPF, 100, window.WIN_BLACKMAN, 6.76))
+        self.band_pass_filter_1.set_taps(firdes.band_pass(1, self.samp_rate, 100, 3000, 100, window.WIN_BLACKMAN, 6.76))
+        self.low_pass_filter_0.set_taps(firdes.low_pass(1, self.samp_rate, 3200, 100, window.WIN_KAISER, 6.76))
+        self.low_pass_filter_0_0.set_taps(firdes.low_pass(1, self.samp_rate, 3200, 100, window.WIN_KAISER, 6.76))
 
 
 
 def argument_parser():
     parser = ArgumentParser()
     parser.add_argument(
-        "-G", "--GAIN", dest="GAIN", type=eng_float, default="400.0m",
+        "-G", "--GAIN", dest="GAIN", type=eng_float, default=eng_notation.num_to_str(float(0.4)),
         help="Set GAIN [default=%(default)r]")
     parser.add_argument(
         "--HPF", dest="HPF", type=intx, default=3200,

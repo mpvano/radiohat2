@@ -1088,9 +1088,9 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
-    _io_cache: ('libradiohat', 'blk', [], [('ptt', 'message', 1), ('freq', 'message',
-      1), ('cwmode', 'message', 1), ('adc', 'message', 1), ('readVSWR', 'message',
-      1), ('readForward', 'message', 1)], [], 'Embedded Python Block example - a simple
+    _io_cache: ('libradiohat', 'blk', [], [('cwmode', 'message', 1), ('adc', 'message',
+      1), ('ptt', 'message', 1), ('freq', 'message', 1), ('readForward', 'message',
+      1), ('readVSWR', 'message', 1)], [], 'Embedded Python Block example - a simple
       multiply const', [])
     bus_sink: false
     bus_source: false

@@ -1,6 +1,7 @@
 options:
   parameters:
     author: ''
+    catch_exceptions: 'True'
     category: '[GRC Hier Blocks]'
     cmake_opt: ''
     comment: ''
@@ -235,7 +236,7 @@ blocks:
     samp_rate: samp_rate
     type: fir_filter_fff
     width: '100'
-    win: firdes.WIN_BLACKMAN
+    win: window.WIN_BLACKMAN
   states:
     bus_sink: false
     bus_source: false
@@ -260,7 +261,7 @@ blocks:
     samp_rate: samp_rate
     type: interp_fir_filter_fff
     width: '100'
-    win: firdes.WIN_BLACKMAN
+    win: window.WIN_BLACKMAN
   states:
     bus_sink: false
     bus_source: false
@@ -432,7 +433,7 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
     num_taps: '201'
-    win: firdes.WIN_BLACKMAN_hARRIS
+    win: window.WIN_BLACKMAN_hARRIS
   states:
     bus_sink: false
     bus_source: false
@@ -450,7 +451,7 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
     num_taps: '201'
-    win: firdes.WIN_BLACKMAN_hARRIS
+    win: window.WIN_BLACKMAN_hARRIS
   states:
     bus_sink: false
     bus_source: false
@@ -468,7 +469,7 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
     num_taps: '201'
-    win: firdes.WIN_BLACKMAN_hARRIS
+    win: window.WIN_BLACKMAN_hARRIS
   states:
     bus_sink: false
     bus_source: false
@@ -492,7 +493,7 @@ blocks:
     samp_rate: samp_rate
     type: fir_filter_fff
     width: '100'
-    win: firdes.WIN_KAISER
+    win: window.WIN_KAISER
   states:
     bus_sink: false
     bus_source: false
@@ -516,7 +517,7 @@ blocks:
     samp_rate: samp_rate
     type: fir_filter_fff
     width: '100'
-    win: firdes.WIN_KAISER
+    win: window.WIN_KAISER
   states:
     bus_sink: false
     bus_source: false
@@ -566,3 +567,4 @@ connections:
 
 metadata:
   file_format: 1
+  grc_version: 3.10.5.1

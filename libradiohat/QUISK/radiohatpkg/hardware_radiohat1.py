@@ -24,7 +24,9 @@ CORRECT_RX_CODEC = False
 PLOT_ERROR = False
 DEBUG_PID = False
 
-CODEC_CLOCK = 12288000                      # Nominal 12.288Mhz as per data sheet
+CODEC_CLOCK = 12288000                      # Current setting
+#CODEC_CLOCK = 12288000                      # Nominal 12.288Mhz as per data sheet
+#CODEC_CLOCK = 24576000                      # Nominal setting for 96khz sample rate
 TX_CLOCK_DEFAULT = CODEC_CLOCK              # locks up faster if these are known
 RX_CLOCK_DEFAULT = CODEC_CLOCK
 TX_DEV_STRING = "I/Q Tx Sample Output"      # which "use" string defines each buffer
@@ -288,12 +290,12 @@ class Hardware(BaseHardware):
                         self.application.bottom_widgets.UpdateVoltageText(self.battery)
                 elif self.transmitting:
                     self.wasTransmitting = True
-                    if phase == 1:
+                    if phase == 1 or phase == 2:
                         self.power = self.readForwardOnly()
                         if self.power != self.lastPower:
                             self.lastPower = self.power
                             self.application.bottom_widgets.UpdateFwdText(self.power)
-                    elif phase == 0:
+                    if phase == 0:
                         self.vswr = self.readVSWROnly()
                         if self.lastVswr != self.vswr:
                             self.lastVswr = self.vswr

@@ -109,7 +109,7 @@ FILE * theFile = NULL;
 *
 *		socat -d -d pty,raw,echo=0 \
 *			exec:"/home/pi/radiohat/libradiohat/transceiver -c",pty,raw,setsid
-*	
+*
 *	The -d options will print the name of the pty on stderr.
 *	Note that pty are assigned dynamically in order from 1,
 *	so the pty number may vary depending on other pty
@@ -118,7 +118,7 @@ FILE * theFile = NULL;
 *	(for debugging, add -v to echo all data to stderr)
 *
 *	emulates a subset of the Kenwood TS-480 CAT commands
-*	
+*
 *	Note that most commands send no response at all if args were supplied
 *
 *****************************************************************************/
@@ -156,6 +156,7 @@ int c;
 
 	// could set up socat and open port here or let enclosing script do it
 
+	setADCVol(0.5);
 	while (true)
 		{
 		if (cwMode)			//	not presently useful because the loop blocks at getc
@@ -189,7 +190,7 @@ int c;
 					{
 					cmdbyte2 = toupper(c);
 					catstate = kCollectParams;	//	assume success!
-					
+
 					//	now check if legal command and set proper expected length
 					if ((cmdbyte1 == 'A') && (cmdbyte2=='G'))
 						cmdParmExpected = 4;	//	AF Gain
@@ -221,32 +222,32 @@ int c;
 						}
 					else if  ((cmdbyte1 == 'T') && (cmdbyte2=='X'))
 						cmdParmExpected = 1; 	//	TX command
-					else { catstate = kIdle ; printf(CAT_ERROR_REPLY); } 
+					else { catstate = kIdle ; printf(CAT_ERROR_REPLY); }
 					}
 				else { catstate = kIdle; printf(CAT_ERROR_REPLY); }
 				break;
 
-				
+
 			//	collecting generic params until ';'
 			//	if terminator received: validate, parse and execute
-			case kCollectParams:	
+			case kCollectParams:
 				if (c != ';')			// we're not done yet
 					{
 					// must be digit or ';' and command must not exceed expectd length
 					if ( (!isdigit(c)) || (cmdParmCount >=  cmdParmExpected) )
-						 { catstate = kIdle; printf(CAT_ERROR_REPLY); } 
+						 { catstate = kIdle; printf(CAT_ERROR_REPLY); }
 					else
 						{
 						cmdparms[cmdParmCount++] = c;
 						cmdparms[cmdParmCount] = 0;
 						}	//	its an expected digit, just save it and continue
 					}
-					
+
 				else //	got terminator - parse, execute if we can only reply to queries
 					{
 					catstate = kIdle;				//	finished, one way or another
 					convertedParm = atol(cmdparms);	//	convert from string
-					
+
 					// volume setting?
 					if ((cmdbyte1 == 'A') && (cmdbyte2=='G'))	//	AF Gain
 						{
@@ -281,24 +282,24 @@ int c;
 								}
 							else printf("%c%c%011li;", cmdbyte1, cmdbyte2, VFOa);
 							break;
-														
+
 						case 'R':	//	switch RX VFO to VFO A or B
 						case 'T':	//	set TX VFO to VFO A or B
 							if (cmdParmCount)
 								RXvfo = TXvfo = 0;		//	both use VFO A for now
 							else printf("%c%c%1i;", cmdbyte1, cmdbyte2, RXvfo);
 							break;
-												
+
 						// FIXME: The arguments need far more mode dependent checking!!!
 						case 'W':	//	set DSP BW
 							if (cmdParmCount)
 								DSPbw = convertedParm;
 							else printf("%c%c%03i;", cmdbyte1,cmdbyte2, DSPbw);
 							break;
-						
+
 						default:
 							catstate = kIdle;
-							printf("CAT_ERROR_REPLY"); 
+							printf("CAT_ERROR_REPLY");
 							break;
 						}
 
@@ -306,12 +307,12 @@ int c;
 					//	read-only info command (no args!)
 					else if  ((cmdbyte1 == 'I') && (cmdbyte2=='D'))
 						printf("%c%c%s;",cmdbyte1, cmdbyte2, "020");
-						
+
 					// info command?
 					//	read-only info command (no args!)
 					//	WE  return	"IF00007074000     +00000000002000000 ;"
 					else if  ((cmdbyte1 == 'I') && (cmdbyte2=='F'))
-						printf("%c%c%011li     %c%04li%01i%01i000%01i%01i%s;", 
+						printf("%c%c%011li     %c%04li%01i%01i000%01i%01i%s;",
 								cmdbyte1, cmdbyte2,
 								VFOa, (RIToffset >= 0 ? '+' : '-'),
 								abs(RIToffset), RITon, XITon,
@@ -331,7 +332,7 @@ int c;
 									swapPhaseVFO(true);
 									gLSBMode = true;
 									break;
-									
+
 								case KWUSB:
 									cwMode = false;
 									digitalMode = false;
@@ -359,15 +360,15 @@ int c;
 									digitalMode = false;
 									swapPhaseVFO(true);
 									gLSBMode = true;
-									break;										
+									break;
 
 								case KWFSK_R:
 									cwMode = false;
 									digitalMode = false;
 									swapPhaseVFO(true);
 									gLSBMode = true;
-									break;										
-								
+									break;
+
 								default:
 									break;
 								}
@@ -742,7 +743,7 @@ const char * exitmsgs[] =
 
 	int exitcode = 0;
 	long cfactor = getCalibrationFactorFromPath(argv[0]);
-	
+
 	if (!initVFO(cfactor, STARTFREQUENCY, SGTL5000_FREQ)) exitcode = 3;
 	else if (forceinit)
 		{
