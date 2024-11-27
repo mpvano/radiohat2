@@ -41,7 +41,7 @@ from gnuradio import qtgui
 
 class usbplus(gr.top_block, Qt.QWidget):
 
-    def __init__(self, GAIN=0.4, HPF=3500, LPF=50, RXSINK='', Sideband=1, TXSOURCE='plughw:CARD=Loopback,DEV=1'):
+    def __init__(self, GAIN=0.4, HPF=3500, LPF=50, RXSINK='plughw:CARD=Loopback,DEV=1', Sideband=1, TXSOURCE='plughw:CARD=Loopback,DEV=1'):
         gr.top_block.__init__(self, "Usbplus", catch_exceptions=True)
         Qt.QWidget.__init__(self)
         self.setWindowTitle("Usbplus")
@@ -271,7 +271,7 @@ def argument_parser():
         "--LPF", dest="LPF", type=intx, default=50,
         help="Set LPF [default=%(default)r]")
     parser.add_argument(
-        "--RXSINK", dest="RXSINK", type=str, default='',
+        "--RXSINK", dest="RXSINK", type=str, default='plughw:CARD=Loopback,DEV=1',
         help="Set RXSINK [default=%(default)r]")
     parser.add_argument(
         "-S", "--Sideband", dest="Sideband", type=intx, default=1,

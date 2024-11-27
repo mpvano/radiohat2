@@ -105,7 +105,7 @@ blocks:
     label: ''
     short_id: ''
     type: str
-    value: ''
+    value: plughw:CARD=Loopback,DEV=1
   states:
     bus_sink: false
     bus_source: false
