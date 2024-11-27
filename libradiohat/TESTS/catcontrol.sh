@@ -1,5 +1,9 @@
-sudo modprobe snd-aloop;
-python3 ~/radiohat2/libradiohat/TESTS/vswr.py &
+YOUR_HOME=/home/mvano
+RADIOHAT=$YOUR_HOME/radiohat2
+sudo modprobe snd-aloop
+python $RADIOHAT/libradiohat/TESTS/vswr.py &
 socat -d pty,raw,echo=0 exec:"/home/mvano/radiohat2/libradiohat/transceiver -c",pty,raw,setsid &
-~/radiohat2/libradiohat/GRC/usbplus.py --GAIN=1.0
-sleep 60
+$RADIOHAT/libradiohat/GRC/usbplus.py --GAIN=0.4
+sleep 100
+
+
