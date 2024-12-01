@@ -59,7 +59,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [552, 28.0]
+    coordinate: [568, 28.0]
     rotation: 0
     state: true
 - name: HPF
@@ -76,7 +76,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [728, 20.0]
+    coordinate: [744, 20.0]
     rotation: 0
     state: true
 - name: LPF
@@ -93,7 +93,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [640, 28.0]
+    coordinate: [656, 28.0]
     rotation: 0
     state: true
 - name: RXSINK
@@ -110,7 +110,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [944, 28.0]
+    coordinate: [840, 20.0]
     rotation: 0
     state: true
 - name: Sideband
@@ -127,7 +127,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [464, 20.0]
+    coordinate: [480, 20.0]
     rotation: 0
     state: true
 - name: TXSOURCE
@@ -144,7 +144,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [280, 28.0]
+    coordinate: [296, 28.0]
     rotation: 0
     state: true
 - name: audio_sink_0
@@ -161,7 +161,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [976, 280.0]
+    coordinate: [1048, 328.0]
     rotation: 0
     state: enabled
 - name: audio_sink_1
@@ -178,7 +178,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [968, 124.0]
+    coordinate: [1040, 172.0]
     rotation: 0
     state: enabled
 - name: audio_source_0
@@ -197,7 +197,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [0, 112.0]
+    coordinate: [72, 160.0]
     rotation: 0
     state: enabled
 - name: audio_source_1
@@ -216,7 +216,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [-56, 284.0]
+    coordinate: [16, 332.0]
     rotation: 0
     state: enabled
 - name: band_pass_filter_0
@@ -241,7 +241,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [784, 68.0]
+    coordinate: [856, 116.0]
     rotation: 0
     state: enabled
 - name: band_pass_filter_1
@@ -255,7 +255,7 @@ blocks:
     gain: '1'
     high_cutoff_freq: HPF
     interp: '1'
-    low_cutoff_freq: LPF
+    low_cutoff_freq: '100'
     maxoutbuf: '0'
     minoutbuf: '0'
     samp_rate: samp_rate
@@ -266,7 +266,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [160, 236.0]
+    coordinate: [232, 284.0]
     rotation: 0
     state: enabled
 - name: blocks_add_xx_0
@@ -284,7 +284,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [688, 112.0]
+    coordinate: [760, 160.0]
     rotation: 0
     state: enabled
 - name: blocks_complex_to_imag_0
@@ -300,7 +300,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [368, 144.0]
+    coordinate: [440, 192.0]
     rotation: 0
     state: enabled
 - name: blocks_complex_to_imag_1
@@ -316,7 +316,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [480, 280.0]
+    coordinate: [552, 328.0]
     rotation: 0
     state: enabled
 - name: blocks_complex_to_real_0
@@ -332,7 +332,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [368, 112.0]
+    coordinate: [440, 160.0]
     rotation: 0
     state: enabled
 - name: blocks_complex_to_real_1
@@ -348,7 +348,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [480, 312.0]
+    coordinate: [552, 360.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_const_vxx_0_0
@@ -366,7 +366,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [528, 108.0]
+    coordinate: [600, 156.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_const_vxx_0_0_0
@@ -384,7 +384,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [528, 140.0]
+    coordinate: [600, 188.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_const_vxx_0_0_0_0
@@ -402,7 +402,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [632, 308.0]
+    coordinate: [704, 356.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_const_vxx_0_0_1
@@ -420,7 +420,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [632, 276.0]
+    coordinate: [704, 324.0]
     rotation: 0
     state: enabled
 - name: hilbert_fc_0
@@ -438,7 +438,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [232, 140.0]
+    coordinate: [304, 188.0]
     rotation: 0
     state: enabled
 - name: hilbert_fc_1
@@ -456,7 +456,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [232, 108.0]
+    coordinate: [304, 156.0]
     rotation: 0
     state: enabled
 - name: hilbert_fc_1_0
@@ -474,7 +474,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [328, 292.0]
+    coordinate: [400, 340.0]
     rotation: 0
     state: enabled
 - name: low_pass_filter_0
@@ -484,7 +484,7 @@ blocks:
     alias: ''
     beta: '6.76'
     comment: ''
-    cutoff_freq: LPF
+    cutoff_freq: HPF
     decim: '1'
     gain: '1'
     interp: '1'
@@ -498,7 +498,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [784, 228.0]
+    coordinate: [856, 276.0]
     rotation: 0
     state: enabled
 - name: low_pass_filter_0_0
@@ -522,26 +522,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [784, 260.0]
+    coordinate: [856, 308.0]
     rotation: 0
     state: enabled
-- name: parameter_0
-  id: parameter
-  parameters:
-    alias: ''
-    comment: ''
-    hide: none
-    label: ''
-    short_id: ''
-    type: ''
-    value: '0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [448, 288.0]
-    rotation: 0
-    state: true
 
 connections:
 - [audio_source_0, '0', hilbert_fc_1, '0']

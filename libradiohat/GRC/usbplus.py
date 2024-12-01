@@ -92,7 +92,7 @@ class usbplus(gr.top_block, Qt.QWidget):
         ##################################################
 
         self.qtgui_sink_x_0 = qtgui.sink_c(
-            1024, #fftsize
+            512, #fftsize
             window.WIN_BLACKMAN_hARRIS, #wintype
             0, #fc
             samp_rate, #bw
@@ -106,7 +106,7 @@ class usbplus(gr.top_block, Qt.QWidget):
         self.qtgui_sink_x_0.set_update_time(1.0/8)
         self._qtgui_sink_x_0_win = sip.wrapinstance(self.qtgui_sink_x_0.qwidget(), Qt.QWidget)
 
-        self.qtgui_sink_x_0.enable_rf_freq(False)
+        self.qtgui_sink_x_0.enable_rf_freq(True)
 
         self.top_layout.addWidget(self._qtgui_sink_x_0_win)
         self.low_pass_filter_0_0 = filter.fir_filter_fff(

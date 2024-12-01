@@ -161,7 +161,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1024, 320.0]
+    coordinate: [1024, 344.0]
     rotation: 0
     state: enabled
 - name: audio_sink_1
@@ -216,7 +216,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [0, 324.0]
+    coordinate: [0, 348.0]
     rotation: 0
     state: enabled
 - name: band_pass_filter_0
@@ -266,7 +266,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [224, 276.0]
+    coordinate: [224, 300.0]
     rotation: 0
     state: enabled
 - name: blocks_add_xx_0
@@ -316,7 +316,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [544, 320.0]
+    coordinate: [544, 344.0]
     rotation: 0
     state: enabled
 - name: blocks_complex_to_real_0
@@ -348,7 +348,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [544, 352.0]
+    coordinate: [544, 376.0]
     rotation: 0
     state: enabled
 - name: blocks_float_to_complex_0
@@ -364,7 +364,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [200, 200.0]
+    coordinate: [240, 216.0]
     rotation: 0
     state: true
 - name: blocks_multiply_const_vxx_0_0
@@ -418,7 +418,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [696, 348.0]
+    coordinate: [696, 372.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_const_vxx_0_0_1
@@ -436,7 +436,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [696, 316.0]
+    coordinate: [696, 340.0]
     rotation: 0
     state: enabled
 - name: hilbert_fc_0
@@ -490,7 +490,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [392, 332.0]
+    coordinate: [392, 356.0]
     rotation: 0
     state: enabled
 - name: low_pass_filter_0
@@ -514,7 +514,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [856, 268.0]
+    coordinate: [856, 292.0]
     rotation: 0
     state: enabled
 - name: low_pass_filter_0_0
@@ -538,7 +538,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [856, 300.0]
+    coordinate: [856, 324.0]
     rotation: 0
     state: enabled
 - name: qtgui_sink_x_0
@@ -549,7 +549,7 @@ blocks:
     bw: samp_rate
     comment: ''
     fc: '0'
-    fftsize: '1024'
+    fftsize: '512'
     gui_hint: ''
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -560,14 +560,14 @@ blocks:
     plotwaterfall: 'True'
     rate: '8'
     showports: 'False'
-    showrf: 'False'
+    showrf: 'True'
     type: complex
     wintype: window.WIN_BLACKMAN_hARRIS
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1048, 196.0]
+    coordinate: [520, 196.0]
     rotation: 0
     state: true
 

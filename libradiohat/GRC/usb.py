@@ -25,7 +25,7 @@ from gnuradio import eng_notation
 
 class usb(gr.top_block):
 
-    def __init__(self, GAIN=0.4, HPF=3500, LPF=50, RXSINK='plughw:Loopback,DEV=1', Sideband=1, TXSOURCE='plughw:CARD=Loopback,DEV=1', parameter_0=0):
+    def __init__(self, GAIN=0.4, HPF=3500, LPF=50, RXSINK='plughw:Loopback,DEV=1', Sideband=1, TXSOURCE='plughw:CARD=Loopback,DEV=1'):
         gr.top_block.__init__(self, "Usb", catch_exceptions=True)
 
         ##################################################
@@ -37,7 +37,6 @@ class usb(gr.top_block):
         self.RXSINK = RXSINK
         self.Sideband = Sideband
         self.TXSOURCE = TXSOURCE
-        self.parameter_0 = parameter_0
 
         ##################################################
         # Variables
@@ -62,7 +61,7 @@ class usb(gr.top_block):
             firdes.low_pass(
                 1,
                 samp_rate,
-                LPF,
+                HPF,
                 100,
                 window.WIN_KAISER,
                 6.76))
@@ -83,7 +82,7 @@ class usb(gr.top_block):
             firdes.band_pass(
                 1,
                 samp_rate,
-                LPF,
+                100,
                 HPF,
                 100,
                 window.WIN_BLACKMAN,
@@ -142,7 +141,8 @@ class usb(gr.top_block):
     def set_HPF(self, HPF):
         self.HPF = HPF
         self.band_pass_filter_0.set_taps(firdes.band_pass(self.GAIN, self.samp_rate, self.LPF, self.HPF, 100, window.WIN_BLACKMAN, 6.76))
-        self.band_pass_filter_1.set_taps(firdes.band_pass(1, self.samp_rate, self.LPF, self.HPF, 100, window.WIN_BLACKMAN, 6.76))
+        self.band_pass_filter_1.set_taps(firdes.band_pass(1, self.samp_rate, 100, self.HPF, 100, window.WIN_BLACKMAN, 6.76))
+        self.low_pass_filter_0.set_taps(firdes.low_pass(1, self.samp_rate, self.HPF, 100, window.WIN_KAISER, 6.76))
         self.low_pass_filter_0_0.set_taps(firdes.low_pass(1, self.samp_rate, self.HPF, 100, window.WIN_KAISER, 6.76))
 
     def get_LPF(self):
@@ -151,8 +151,6 @@ class usb(gr.top_block):
     def set_LPF(self, LPF):
         self.LPF = LPF
         self.band_pass_filter_0.set_taps(firdes.band_pass(self.GAIN, self.samp_rate, self.LPF, self.HPF, 100, window.WIN_BLACKMAN, 6.76))
-        self.band_pass_filter_1.set_taps(firdes.band_pass(1, self.samp_rate, self.LPF, self.HPF, 100, window.WIN_BLACKMAN, 6.76))
-        self.low_pass_filter_0.set_taps(firdes.low_pass(1, self.samp_rate, self.LPF, 100, window.WIN_KAISER, 6.76))
 
     def get_RXSINK(self):
         return self.RXSINK
@@ -174,20 +172,14 @@ class usb(gr.top_block):
     def set_TXSOURCE(self, TXSOURCE):
         self.TXSOURCE = TXSOURCE
 
-    def get_parameter_0(self):
-        return self.parameter_0
-
-    def set_parameter_0(self, parameter_0):
-        self.parameter_0 = parameter_0
-
     def get_samp_rate(self):
         return self.samp_rate
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
         self.band_pass_filter_0.set_taps(firdes.band_pass(self.GAIN, self.samp_rate, self.LPF, self.HPF, 100, window.WIN_BLACKMAN, 6.76))
-        self.band_pass_filter_1.set_taps(firdes.band_pass(1, self.samp_rate, self.LPF, self.HPF, 100, window.WIN_BLACKMAN, 6.76))
-        self.low_pass_filter_0.set_taps(firdes.low_pass(1, self.samp_rate, self.LPF, 100, window.WIN_KAISER, 6.76))
+        self.band_pass_filter_1.set_taps(firdes.band_pass(1, self.samp_rate, 100, self.HPF, 100, window.WIN_BLACKMAN, 6.76))
+        self.low_pass_filter_0.set_taps(firdes.low_pass(1, self.samp_rate, self.HPF, 100, window.WIN_KAISER, 6.76))
         self.low_pass_filter_0_0.set_taps(firdes.low_pass(1, self.samp_rate, self.HPF, 100, window.WIN_KAISER, 6.76))
 
 
