@@ -71,7 +71,7 @@ blocks:
     label: ''
     short_id: ''
     type: intx
-    value: '3200'
+    value: '3500'
   states:
     bus_sink: false
     bus_source: false
@@ -105,7 +105,7 @@ blocks:
     label: ''
     short_id: ''
     type: str
-    value: ''
+    value: plughw:Loopback,DEV=1
   states:
     bus_sink: false
     bus_source: false
@@ -253,9 +253,9 @@ blocks:
     comment: ''
     decim: '1'
     gain: '1'
-    high_cutoff_freq: '3000'
+    high_cutoff_freq: HPF
     interp: '1'
-    low_cutoff_freq: '100'
+    low_cutoff_freq: LPF
     maxoutbuf: '0'
     minoutbuf: '0'
     samp_rate: samp_rate
@@ -484,7 +484,7 @@ blocks:
     alias: ''
     beta: '6.76'
     comment: ''
-    cutoff_freq: '3200'
+    cutoff_freq: LPF
     decim: '1'
     gain: '1'
     interp: '1'
@@ -508,7 +508,7 @@ blocks:
     alias: ''
     beta: '6.76'
     comment: ''
-    cutoff_freq: '3200'
+    cutoff_freq: HPF
     decim: '1'
     gain: '1'
     interp: '1'
